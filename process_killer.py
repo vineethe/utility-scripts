@@ -4,15 +4,9 @@ import os
 import sys
 import time
 
-def start():
+def start(processPath, killInSec):
   processPath = '/Applications/Spotify.app/Contents/MacOS/Spotify' # sys.argv[1]
   
-  try:
-    killInSec = int(sys.argv[1])  # int(sys.argv[2))
-  except:
-    print "Must has time in seconds as 1. argument "
-    return 0
-
   if not processPath.startswith('/Applications/'):
     print "Processes must run from '/Applications/*'"
     return 0
@@ -41,6 +35,16 @@ def start():
   # Kill
   os.system('echo %s|sudo -S %s' % (pw, 'sudo kill ' + pid))
 
+  return 1
+
 
 if __name__ == "__main__":
-  start()
+
+  try:
+    ## Kill given process 
+    # start(sys.argv[1],int( sys.argv[2]))
+
+    ## Kill Spotify 
+    start('/Applications/Spotify.app/Contents/MacOS/Spotify', int(sys.argv[1]))
+  except:
+    print "Invalid argument/s"
